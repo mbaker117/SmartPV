@@ -1,0 +1,19 @@
+#textColor{
+	 color: #3ba9fd;
+}
+
+#mainColor{
+	background-color :#3ba9fd;
+}
+.bgColor{
+	background-color :#3ba9fd;
+}
+.error {
+	color: red
+}
+
+.word-wrap {
+        word-break: break-all;
+        // word-wrap: break-word;
+        // overflow-wrap: break-word;
+}
