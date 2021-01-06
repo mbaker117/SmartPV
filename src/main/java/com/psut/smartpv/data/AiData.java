@@ -16,18 +16,18 @@ public class AiData {
 	private double energy;
 
 	/**
-	 * Gets the power.
+	 * Gets the energy.
 	 *
-	 * @return the power
+	 * @return the energy
 	 */
 	public double getEnergy() {
 		return energy;
 	}
 
 	/**
-	 * Sets the power.
+	 * Sets the energy.
 	 *
-	 * @param energy the new power
+	 * @param energy the new energy
 	 */
 	public void setEnergy(double energy) {
 		this.energy = energy;

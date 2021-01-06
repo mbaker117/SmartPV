@@ -19,8 +19,8 @@ public class AiRequestListData {
 	/**
 	 * Instantiates a new ai request list data.
 	 *
-	 * @param func the func
-	 * @param data the data
+	 * @param func the func.
+	 * @param data the data.
 	 */
 	public AiRequestListData(String func, List<AiRequestData> data) {
 		super();

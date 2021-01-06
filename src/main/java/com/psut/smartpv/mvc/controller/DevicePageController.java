@@ -25,7 +25,6 @@ import com.psut.smartpv.facade.DeviceReadingFacade;
 import com.psut.smartpv.model.Device;
 import com.psut.smartpv.model.RealTimeReading;
 import com.psut.smartpv.service.DeviceService;
-import com.psut.smartpv.service.ExpectedReadingService;
 import com.psut.smartpv.service.RealTimeReadingService;
 
 @Controller
@@ -33,16 +32,12 @@ public class DevicePageController {
 	@Autowired
 	private DeviceService deviceService;
 
-	
 	@Autowired
 	private RealTimeReadingService realTimeReadingService;
-	
-	@Autowired
-	private ExpectedReadingService expectedReadingService;
-	
+
 	@Autowired
 	private DeviceReadingFacade deviceReadingFacade;
-	
+
 	@RequestMapping("/device")
 	public String device(Model model) {
 		model.addAttribute("devices", deviceService.getAllDevices());
@@ -69,27 +64,31 @@ public class DevicePageController {
 			return "deviceForm";
 
 		try {
+			boolean activated = device.isActivated();
 
-			if (device.getId() == 0)
-				deviceService.addDevice(device.getImei(), device.getLongitude(), device.getLatitude(),
+			if (device.getId() == 0) {
+				device = deviceService.addDevice(device.getImei(), device.getLongitude(), device.getLatitude(),
 						device.getRatedOut(), device.getRatedCapacity(), device.getTiltAngleHorizontal(),
 						device.getTiltAngleVertical());
+			}
 
 			else {
 
 				deviceService.updateDevice(device.getId(), device.getImei(), device.getLongitude(),
 						device.getLatitude(), device.getRatedOut(), device.getRatedCapacity(),
 						device.getTiltAngleHorizontal(), device.getTiltAngleVertical());
-				if (!device.isActivated()) {
-					deviceService.deActivateDevice(device.getId());
-					deviceService.setWorking(device.getId(), false);
-				}
+
 			}
 
-			if (device.isActivated())
+			if (!activated) {
+				deviceService.deActivateDevice(device.getId());
+				deviceService.setWorking(device.getId(), false);
+			} else {
 				deviceService.activateDeviceById(device.getId());
+			}
+
 		} catch (SmartPvException e) {
-				bindingResult.rejectValue("imei","imei.device",e.getMessage());
+			bindingResult.rejectValue("imei", "imei.device", e.getMessage());
 			return "deviceForm";
 		}
 
@@ -102,40 +101,35 @@ public class DevicePageController {
 
 		return "deviceForm";
 	}
-	
-	
+
 	@RequestMapping("/deviceRealTimeReading")
 	public String realTimeReadings(Model model, @RequestParam("deviceId") long id) {
 		try {
 			List<RealTimeReading> realTimeReadingByDevice = realTimeReadingService.getRealTimeReadingByDevice(id);
 			Collections.reverse(realTimeReadingByDevice);
-			model.addAttribute("readings",realTimeReadingByDevice);
+			model.addAttribute("readings", realTimeReadingByDevice);
 		} catch (SmartPvException e) {
-			model.addAttribute("readings",Collections.EMPTY_LIST);
+			model.addAttribute("readings", Collections.EMPTY_LIST);
 		}
 
 		return "deviceRealTimeReadings";
 	}
-	
-	
+
 	@RequestMapping("/deviceExpectedReading")
 	public String expectedReadings(Model model, @RequestParam("deviceId") long id) {
 		try {
 			String imei = deviceService.getDeviceById(id).get().getImei();
 			List<HistoryNumbersDto> historyNumbers = deviceReadingFacade.getHistoryNumbers(imei);
-			
-			  Collections.reverse(historyNumbers);
-			 
-			model.addAttribute("readings",historyNumbers);
+
+			Collections.reverse(historyNumbers);
+
+			model.addAttribute("readings", historyNumbers);
 		} catch (SmartPvException | ParseException e) {
-			model.addAttribute("readings",Collections.EMPTY_LIST);
+			model.addAttribute("readings", Collections.EMPTY_LIST);
 		}
 
 		return "deviceExpectedReadings";
 	}
-	
-	
-	
 
 	@InitBinder
 	public void validate(WebDataBinder webDataBinder) {

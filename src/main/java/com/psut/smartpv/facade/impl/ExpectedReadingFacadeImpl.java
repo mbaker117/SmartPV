@@ -3,8 +3,8 @@
  */
 package com.psut.smartpv.facade.impl;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +18,7 @@ import com.psut.smartpv.exception.type.SmartPvExceptionType;
 import com.psut.smartpv.facade.ExpectedReadingFacade;
 import com.psut.smartpv.mapper.WeatherToAiMapper;
 import com.psut.smartpv.model.Device;
+import com.psut.smartpv.model.ExpectedReading;
 import com.psut.smartpv.service.AiService;
 import com.psut.smartpv.service.DeviceService;
 import com.psut.smartpv.service.ExpectedReadingService;
@@ -67,12 +68,14 @@ public class ExpectedReadingFacadeImpl implements ExpectedReadingFacade {
 			LOG.info("no devices");
 			return;
 		}
-  		for (Device device : allDevices) {
-			if (!expectedReadingService.getExpectedReadingByDeviceAndDate(device.getId(),new Date()).isPresent()) {
-				addFiveDays(device);
-				continue;
-			}
-			addDayFour(device);
+		for (Device device : allDevices) {
+			// if
+			// (!expectedReadingService.getExpectedReadingByDeviceAndDate(device.getId(),new
+			// Date()).isPresent()) {
+			addFiveDays(device);
+			// continue;
+			// }
+			// addDayFour(device);
 		}
 		LOG.info("finished ExpectedReadingFacadeImpl addExpectedReadingToAllDevices with latency = {}",
 				(System.nanoTime() - nanoTime));
@@ -92,12 +95,20 @@ public class ExpectedReadingFacadeImpl implements ExpectedReadingFacade {
 		List<AiDayRequestData> weatherToAiDataNextFourDays = weatherToAiMapper.getWeatherToAiDataNextFourDays(
 				(weatherService.getWeather(device.getLongitude(), device.getLatitude(), 40).get()));
 		for (AiDayRequestData day : weatherToAiDataNextFourDays) {
-			
+			Optional<ExpectedReading> expectedReading = expectedReadingService
+					.getExpectedReadingByDeviceAndDate(device.getId(), day.getDate());
 			try {
 				AiData power = aiService.getPower(day.getData()).get();
-				expectedReadingService.addExpectedReadingByDeviceId(device.getId(), power.getEnergy(), day.getDate());
+
+				if (!expectedReading.isPresent())
+					expectedReadingService.addExpectedReadingByDeviceId(device.getId(), power.getEnergy(),
+							day.getDate());
+				else
+					expectedReadingService.updateExpectedReadingByDeviceId(expectedReading.get().getId(),
+							device.getId(), power.getEnergy());
 			} catch (SmartPvException e) {
-				expectedReadingService.addExpectedReadingByDeviceId(device.getId(), 0, day.getDate());
+				if (!expectedReading.isPresent())
+					expectedReadingService.addExpectedReadingByDeviceId(device.getId(), 0, day.getDate());
 				LOG.error(e.getMessage());
 				if (e.getType() != SmartPvExceptionType.EXPECTED_READING_ALREADY_EXIST)
 					throw e;

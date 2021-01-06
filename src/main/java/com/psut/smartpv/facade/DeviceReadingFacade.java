@@ -38,8 +38,24 @@ public interface DeviceReadingFacade {
 	 */
 	public DeviceReadingDto getDeviceReadingByDate(long id, Date date) throws SmartPvException, ParseException;
 	
+	/**
+	 * Gets the history numbers.
+	 *
+	 * @param imei the imei
+	 * @return the history numbers
+	 * @throws SmartPvException the smart pv exception
+	 * @throws ParseException   the parse exception
+	 */
 	public List<HistoryNumbersDto> getHistoryNumbers(String imei) throws SmartPvException, ParseException;
 	
+	/**
+	 * Gets the history chart.
+	 *
+	 * @param imei the imei
+	 * @return the history chart
+	 * @throws SmartPvException the smart pv exception
+	 * @throws ParseException   the parse exception
+	 */
 	public HistoryChartDto getHistoryChart(String imei) throws SmartPvException, ParseException;
 
 }

@@ -1,3 +1,6 @@
+/*
+ * @author MohammedBaker & Abd-Alqader Okasha
+ */
 package com.psut.smartpv.mvc.controller;
 
 import java.text.DecimalFormat;
@@ -10,12 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.psut.smartpv.data.AiInfoData;
 import com.psut.smartpv.service.AiService;
 
+/**
+ * The Class AiPageController.
+ */
 @Controller
 public class AiPageController {
 	
+	/** The ai service. */
 	@Autowired
 	private AiService aiService;
 	
+	/**
+	 * Ai info.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@RequestMapping("/ai")
 	public String aiInfo(Model model) {
 		try {

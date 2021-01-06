@@ -85,6 +85,6 @@ public interface ExpectedReadingService {
 	 * @param acctualReading the acctual reading
 	 * @throws SmartPvException the smart pv exception
 	 */
-	public void addAcctualReading(long id, double acctualReading) throws SmartPvException;
+	public void addAcctualReading(long id, double acctualReading) throws SmartPvException;	
 
 }

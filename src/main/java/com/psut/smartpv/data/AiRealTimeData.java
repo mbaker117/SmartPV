@@ -26,7 +26,7 @@ public class AiRealTimeData {
 	 * @param time  the time.
 	 * @param hum   the hum.
 	 * @param temp  the temp.
-	 * @param power the power
+	 * @param power the power.
 	 */
 	public AiRealTimeData(double time, double hum, double temp, double power) {
 		super();

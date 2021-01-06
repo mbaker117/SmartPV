@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.psut.smartpv.exception.SmartPvException;
 import com.psut.smartpv.model.Device;
+import com.psut.smartpv.model.User;
 
 /**
  * The Interface DeviceService.
@@ -29,7 +30,7 @@ public interface DeviceService {
 	 * @param tiltAngleVertical   the tilt angle vertical
 	 * @throws SmartPvException the smart pv exception
 	 */
-	public void addDevice(String imei, double longitude, double latitude, double ratedOut, double ratedCapacity,
+	public Device addDevice(String imei, double longitude, double latitude, double ratedOut, double ratedCapacity,
 			double tiltAngleHorizontal, double tiltAngleVertical
 
 	) throws SmartPvException;
@@ -122,5 +123,9 @@ public interface DeviceService {
 	 * @throws SmartPvException the smart pv exception
 	 */
 	public void deActivateDevice(long id) throws SmartPvException;
+	
+	public void addUser(long deviceId, User user) throws SmartPvException;
+	
+	public void removeUser(long deviceId, User user) throws SmartPvException;
 
 }

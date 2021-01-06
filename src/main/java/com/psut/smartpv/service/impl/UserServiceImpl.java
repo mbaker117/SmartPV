@@ -16,7 +16,9 @@ import com.psut.smartpv.controller.DeviceController;
 import com.psut.smartpv.dao.UserDao;
 import com.psut.smartpv.exception.SmartPvException;
 import com.psut.smartpv.exception.type.SmartPvExceptionType;
+import com.psut.smartpv.model.Device;
 import com.psut.smartpv.model.User;
+import com.psut.smartpv.service.DeviceService;
 import com.psut.smartpv.service.UserService;
 import com.psut.smartpv.util.AesEncryption;
 import com.psut.smartpv.util.ValidationUtil;
@@ -34,6 +36,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 
+	@Autowired
+	private DeviceService deviceService;
+	
 	/**
 	 * Adds the user.
 	 *
@@ -224,6 +229,11 @@ public class UserServiceImpl implements UserService {
 			throw new SmartPvException(SmartPvExceptionType.USER_NOT_FOUND,
 					SmartPvExceptionType.USER_NOT_FOUND.getMsg());
 		}
+		for(Device device : userById.get().getDevices())
+		{
+			deviceService.removeUser(device.getId(),userById.get());
+		}
+		
 		userDao.delete(userById.get());
 		LOG.info("finished deleteUser with latency={}", System.nanoTime() - nanoTime);
 

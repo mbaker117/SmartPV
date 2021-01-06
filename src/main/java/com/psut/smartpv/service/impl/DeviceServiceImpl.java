@@ -4,6 +4,7 @@
 package com.psut.smartpv.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import com.psut.smartpv.dao.DeviceDao;
 import com.psut.smartpv.exception.SmartPvException;
 import com.psut.smartpv.exception.type.SmartPvExceptionType;
 import com.psut.smartpv.model.Device;
+import com.psut.smartpv.model.User;
 import com.psut.smartpv.service.DeviceService;
 import com.psut.smartpv.util.ValidationUtil;
 
@@ -44,7 +46,7 @@ public class DeviceServiceImpl implements DeviceService {
 	 * @throws SmartPvException the smart pv exception
 	 */
 	@Override
-	public void addDevice(String imei, double longitude, double latitude, double ratedOut, double ratedCapacity,
+	public Device addDevice(String imei, double longitude, double latitude, double ratedOut, double ratedCapacity,
 			double tiltAngleHorizontal, double tiltAngleVertical) throws SmartPvException {
 		LOG.info("start addDevice");
 		long nanoTime = System.nanoTime();
@@ -58,10 +60,9 @@ public class DeviceServiceImpl implements DeviceService {
 			throw new SmartPvException(SmartPvExceptionType.INVALID_LONGITUDE,
 					SmartPvExceptionType.INVALID_LONGITUDE.getMsg());
 		}
-		if(!ValidationUtil.isValidIMEI(imei)) {
+		if (!ValidationUtil.isValidIMEI(imei)) {
 			LOG.error(SmartPvExceptionType.INVALID_IMEI.getMsg());
-			throw new SmartPvException(SmartPvExceptionType.INVALID_IMEI,
-					SmartPvExceptionType.INVALID_IMEI.getMsg());
+			throw new SmartPvException(SmartPvExceptionType.INVALID_IMEI, SmartPvExceptionType.INVALID_IMEI.getMsg());
 		}
 		deviceDao.findByImei(imei);
 		if (deviceDao.findByImei(imei).isPresent()) {
@@ -79,6 +80,7 @@ public class DeviceServiceImpl implements DeviceService {
 		device.setRatedOut(ratedOut);
 		deviceDao.save(device);
 		LOG.info("finished addDevice with latency={}", System.nanoTime() - nanoTime);
+		return device;
 
 	}
 
@@ -187,6 +189,7 @@ public class DeviceServiceImpl implements DeviceService {
 			throw new SmartPvException(SmartPvExceptionType.DEVICE_NOT_FOUND,
 					SmartPvExceptionType.DEVICE_NOT_FOUND.getMsg());
 		}
+	
 		deviceDao.delete(deviceById.get());
 
 		LOG.info("finished deleteDevice with latency={}", System.nanoTime() - nanoTime);
@@ -315,4 +318,49 @@ public class DeviceServiceImpl implements DeviceService {
 		LOG.info("finished deActivateDevice with latency={}", System.nanoTime() - nanoTime);
 
 	}
+
+	@Override
+	public void addUser(long deviceId, User user) throws SmartPvException {
+		LOG.info("start addUser");
+		long nanoTime = System.nanoTime();
+		if (Objects.isNull(user)) {
+			IllegalArgumentException ex = new IllegalArgumentException("user is null");
+			LOG.error(ex.getMessage());
+			throw ex;
+		}
+		Optional<Device> deviceById = deviceDao.findById(deviceId);
+		if (!deviceById.isPresent()) {
+			LOG.error("{} Id = {}", SmartPvExceptionType.DEVICE_NOT_FOUND.getMsg(), deviceById);
+			throw new SmartPvException(SmartPvExceptionType.DEVICE_NOT_FOUND,
+					SmartPvExceptionType.DEVICE_NOT_FOUND.getMsg());
+		}
+		deviceById.get().setUser(user);
+		deviceDao.save(deviceById.get());
+		LOG.info("finished addUser with latency={}", System.nanoTime() - nanoTime);
+
+	}
+
+	@Override
+	public void removeUser(long deviceId, User user) throws SmartPvException {
+		LOG.info("start removeUser");
+		long nanoTime = System.nanoTime();
+		if (Objects.isNull(user)) {
+			IllegalArgumentException ex = new IllegalArgumentException("user is null");
+			LOG.error(ex.getMessage());
+			throw ex;
+		}
+		Optional<Device> deviceById = deviceDao.findById(deviceId);
+		if (!deviceById.isPresent()) {
+			LOG.error("{} Id = {}", SmartPvExceptionType.DEVICE_NOT_FOUND.getMsg(), deviceById);
+			throw new SmartPvException(SmartPvExceptionType.DEVICE_NOT_FOUND,
+					SmartPvExceptionType.DEVICE_NOT_FOUND.getMsg());
+		}
+		if(deviceById.get().getUser()!= user)
+			return;
+		deviceById.get().setUser(null);
+		deviceDao.save(deviceById.get());
+		LOG.info("finished removeUser with latency={}", System.nanoTime() - nanoTime);
+		
+	}
+
 }

@@ -19,8 +19,8 @@ public class AiRealTimeListData {
 	/**
 	 * Instantiates a new ai real time list data.
 	 *
-	 * @param func the func
-	 * @param data the data
+	 * @param func the func.
+	 * @param data the data.
 	 */
 	public AiRealTimeListData(String func, List<AiRealTimeData> data) {
 		super();

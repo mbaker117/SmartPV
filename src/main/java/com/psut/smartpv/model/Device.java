@@ -3,14 +3,24 @@
  */
 package com.psut.smartpv.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The Class Device.
@@ -21,7 +31,9 @@ public class Device implements Comparable<Device> {
 
 	/** The id. */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name="device_generator", sequenceName = "device_generator" )
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "device_generator")
+
 	private long id;
 
 	/** The imei. */
@@ -64,6 +76,17 @@ public class Device implements Comparable<Device> {
 	/** The working. */
 	@Column(name = "Working")
 	private boolean working;
+	
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id",nullable = true)
+	private User user;
+	
+	@OneToMany(targetEntity = RealTimeReading.class,cascade =  {CascadeType.ALL}, mappedBy = "device",fetch = FetchType.LAZY )
+	private List<RealTimeReading> realTimeReadings;
+
+	@OneToMany(targetEntity = ExpectedReading.class,cascade = { CascadeType.ALL },  mappedBy = "device", fetch = FetchType.LAZY)
+	private List<ExpectedReading> expectedReadings;
 
 	/**
 	 * Gets the id.
@@ -245,6 +268,36 @@ public class Device implements Comparable<Device> {
 		this.working = working;
 	}
 
+
+	
+	
+	
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
+
+	public List<RealTimeReading> getRealTimeReadings() {
+		return realTimeReadings;
+	}
+
+	public void setRealTimeReadings(List<RealTimeReading> realTimeReadings) {
+		this.realTimeReadings = realTimeReadings;
+	}
+
+	public List<ExpectedReading> getExpectedReadings() {
+		return expectedReadings;
+	}
+
+	public void setExpectedReadings(List<ExpectedReading> expectedReadings) {
+		this.expectedReadings = expectedReadings;
+	}
 
 	/**
 	 * Compare to.

@@ -51,7 +51,11 @@ public enum SmartPvExceptionType {
 	INVALID_HUMIDITY("humidity is invalid"),
 	
 	/** The device already exist. */
-	DEVICE_ALREADY_EXIST("device already exists"), INVALID_IMEI("imei is invalid");
+	DEVICE_ALREADY_EXIST("device already exists"), 
+ /** The invalid imei. */
+ INVALID_IMEI("imei is invalid"), 
+ /** The device already used. */
+ DEVICE_ALREADY_USED("device is already used by other user");
 
 	/** The msg. */
 	private String msg;

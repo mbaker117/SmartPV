@@ -81,6 +81,11 @@ public class AiServiceImpl implements AiService {
 		
 	}
 
+	/**
+	 * Gets the ai info data.
+	 *
+	 * @return the ai info data
+	 */
 	@Override
 	public AiInfoData getAiInfoData() {
 		LOG.info("start sendReading");

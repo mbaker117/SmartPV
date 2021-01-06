@@ -68,6 +68,7 @@
               <h1 data-aos="fade-right">SMART PV SYSTEM&nbsp;</h1>
               <p class="mb-5" data-aos="fade-right" data-aos-delay="100">SmartPV is a system for monitoring and recording pv panels data. Also, to improve the efficiency of the system.</p>
               <p data-aos="fade-right" data-aos-delay="200" data-aos-offset="-500"><a href="/user" class="btn btn-outline-white">Admin Page</a></p>
+              <br>
             </div>
             <div class="col-lg-5 iphone-wrap">
               <img src="/assets/img/phone_1.png" alt="Image" class="phone-1" data-aos="fade-right">
@@ -98,8 +99,10 @@
               <div class="wrap-icon icon-1">
                 <span class="icon la la-microchip"></span>
               </div>
-              <h3 class="mb-3">Self Controlled  Device</h3>
-              <p>An arduino device connected to a pv, battery, GSM module, GPS modeul, LDRs, Current Sensors, humdity Sensor, temperature sensor and Servo motors.</p>
+              <h3 class="mb-4">Self Controlled  Device</h3>
+              <p>An arduino device connected to a pv, battery, GSM module, GPS module, LDRs, Current Sensors, humidity Sensor, temperature sensor and Servo motors.</p>
+             
+              <p data-aos="fade-right" data-aos-delay="200" data-aos-offset="-500"><a href="https://github.com/DoodAbooD/powerStation" class="btn" style="background:#3780b4; color:white">Github Link</a></p>
             </div>
           </div>
           <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
@@ -109,8 +112,11 @@
               </div>
               <h3 class="mb-4">Andorid  Application</h3>
               <p>The Application used by the clients to monitors thier devices. The application was built using android studio (Kotlin).</p>
+            
+               <br> 
 				<p data-aos="fade-right" data-aos-delay="200" data-aos-offset="-500"><a href="https://github.com/mbaker117/SmartPV_Android_Application" class="btn" style="background:#3780b4; color:white">Github Link</a></p>
             </div>
+               <br> <br> <br> <br>
           </div>
           <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
             <div class="feature-1 text-center">
@@ -118,9 +124,12 @@
                 <span class="icon la la-brain  "></span>
               </div>
               <h3 class="mb-4">AI Module </h3>
-              <p>The AI module is used to predicate the future energy that the system will produce. The AI was built using Python programming language and using Pytorch framework. The AI is hosted on Azure servers.</p>
+              <p>The AI module is used to predicate the future energy that the system will produce. The AI was built using Python programming language and using Pytorch framework.</p>
+             	<p data-aos="fade-right" data-aos-delay="200" data-aos-offset="-500"><a href="https://github.com/DoodAbooD/powerPredictor" class="btn" style="background:#3780b4; color:white">Github Link</a></p>
+           
             </div>
           </div>
+       > 
 			 <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
             <div class="feature-1 text-center">
               <div class="wrap-icon icon-1">
@@ -139,7 +148,7 @@
                 <span class="icon la la-laptop  "></span>
               </div>
               <h3 class="mb-4">Admin Panel</h3>
-              <p>The Admin panel is used as a dashborad for all the data in the system. </p><br><br>
+              <p>The Admin panel is used as a Dashboard for all the data in the system. </p><br><br>
 				<p data-aos="fade-right" data-aos-delay="200" data-aos-offset="-500"><a href="/user" class="btn" style="background:#3780b4; color:white">Admin Page</a></p>
             </div>
           </div>
@@ -191,7 +200,7 @@
         <div class="row align-items-center">
           <div class="col-md-4 ml-auto order-2">
             <h2 class="mb-4">Android Application</h2>
-            <p class="mb-4">The Mobile Application is used to monitor the current state of the device and the historicate data.</p>
+            <p class="mb-4">The Mobile Application is used to monitor the current state of the device and the historical  data.</p>
            
           </div>
           <div class="col-md-6" data-aos="fade-right">
@@ -259,7 +268,7 @@
    
       <div class="row justify-content-center text-center">
         <div class="col-md-7">
-          <p class="copyright">&copy; Copyright PSUT. All Rights Reserved</p>
+          <p class="copyright">&copy; Copyright Mohammed Baker & Abd-Alqader Okasha. All Rights Reserved</p>
           <div class="credits">
      
           </div>

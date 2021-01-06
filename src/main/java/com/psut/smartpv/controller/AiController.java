@@ -67,6 +67,11 @@ public class AiController {
 	}
 	
 	
+	/**
+	 * Gets the ai info data.
+	 *
+	 * @return the ai info data
+	 */
 	@PostMapping("/info")
 	public AiInfoData getAiInfoData() {
 		

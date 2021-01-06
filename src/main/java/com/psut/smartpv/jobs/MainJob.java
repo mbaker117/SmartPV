@@ -18,13 +18,13 @@ import com.psut.smartpv.facade.ExpectedReadingFacade;
 import com.psut.smartpv.facade.impl.AcctualEnergyFacadeImpl;
 
 /**
- * The Class ExpectedReadingJob.
+ * The Class MainJob.
  */
 @Component
-public class ExpectedReadingJob {
+public class MainJob {
 
 	/** The Constant LOG. */
-	private static final Logger LOG = LoggerFactory.getLogger(ExpectedReadingJob.class);
+	private static final Logger LOG = LoggerFactory.getLogger(MainJob.class);
 
 	/** The Constant dateFormat. */
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");

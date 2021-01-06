@@ -31,6 +31,11 @@ public interface AiService {
 	 */
 	public void sendReading(AiRealTimeData data);
 	
+	/**
+	 * Gets the ai info data.
+	 *
+	 * @return the ai info data
+	 */
 	public AiInfoData getAiInfoData();
 
 }

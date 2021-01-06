@@ -87,6 +87,12 @@ public class ValidationUtil {
 		return ratedCapacity > 0;
 	}
 
+	/**
+	 * Sum dig.
+	 *
+	 * @param n the n
+	 * @return the int
+	 */
 	private static int sumDig(int n) {
 		int a = 0;
 		while (n > 0) {
@@ -96,6 +102,12 @@ public class ValidationUtil {
 		return a;
 	}
 
+	/**
+	 * Checks if is valid IMEI.
+	 *
+	 * @param imei the imei
+	 * @return true, if is valid IMEI
+	 */
 	public static boolean isValidIMEI(String imei) {
 		
 		

@@ -5,12 +5,15 @@ package com.psut.smartpv.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -25,34 +28,38 @@ public class User {
 
 	/** The id. */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name="user_generator", sequenceName = "user_generator", initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+	
+
 	@Column(name = "id")
 	private long id;
 
 	/** The password. */
-	@NotBlank(message= "Password can't be empty")
+	@NotBlank(message = "Password can't be empty")
 	private String password;
 
 	/** The first name. */
 	@NotNull
-	@NotBlank(message="first name cannot be less than 1 character")
+	@NotBlank(message = "first name cannot be less than 1 character")
 	@Column(name = "FirstName")
 	private String firstName;
 
 	/** The last name. */
 	@NotNull
-	@NotBlank(message="last name cannot be less than 1 character")
+	@NotBlank(message = "last name cannot be less than 1 character")
 	@Column(name = "LastName")
 	private String lastName;
 
 	/** The email. */
 	@Column(name = "Email", unique = true)
 	@NotNull
-	@NotBlank(message="email cannot be empty")
+	@NotBlank(message = "email cannot be empty")
 	private String email;
 
 	/** The devices. */
-	@ManyToMany
+	@OneToMany(targetEntity = Device.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH }, mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<Device> devices;
 
 	/**

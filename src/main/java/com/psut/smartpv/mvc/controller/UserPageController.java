@@ -1,3 +1,6 @@
+/*
+ * @author MohammedBaker & Abd-Alqader Okasha
+ */
 package com.psut.smartpv.mvc.controller;
 
 import java.util.stream.Collectors;
@@ -22,24 +25,47 @@ import com.psut.smartpv.exception.type.SmartPvExceptionType;
 import com.psut.smartpv.model.User;
 import com.psut.smartpv.service.UserService;
 
+/**
+ * The Class UserPageController.
+ */
 @Controller
 public class UserPageController {
 
+	/** The user service. */
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * User.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@RequestMapping("/user")
 	public String user(Model model) {
 		model.addAttribute("users", userService.getAllUsers());
 		return "user";
 	}
 
+	/**
+	 * Delete user.
+	 *
+	 * @param id the id
+	 * @return the string
+	 * @throws SmartPvException the smart pv exception
+	 */
 	@GetMapping("/deleteUser")
 	public String deleteUser(@RequestParam("userId") long id) throws SmartPvException {
 		userService.deleteUser(id);
 		return "redirect:/user";
 	}
 
+	/**
+	 * Adds the user form.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@RequestMapping("/addUserForm")
 	public String addUserForm(Model model) {
 		model.addAttribute("user", new User());
@@ -47,6 +73,13 @@ public class UserPageController {
 		return "userForm";
 	}
 
+	/**
+	 * Save student.
+	 *
+	 * @param user          the user
+	 * @param bindingResult the binding result
+	 * @return the string
+	 */
 	@PostMapping("saveUser")
 	public String saveStudent(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
 		System.out.println(bindingResult);
@@ -75,6 +108,13 @@ public class UserPageController {
 		return "redirect:/user";
 	}
 
+	/**
+	 * Edits the user form.
+	 *
+	 * @param model the model
+	 * @param id    the id
+	 * @return the string
+	 */
 	@RequestMapping("/editUserForm")
 	public String editUserForm(Model model, @RequestParam("userId") long id) {
 		model.addAttribute("user", userService.getUserById(id).get());
@@ -82,6 +122,13 @@ public class UserPageController {
 		return "userForm";
 	}
 
+	/**
+	 * User devices.
+	 *
+	 * @param model the model
+	 * @param id    the id
+	 * @return the string
+	 */
 	@RequestMapping("/userDevice")
 	public String userDevices(Model model, @RequestParam("userId") long id) {
 		model.addAttribute("devices", userService.getUserById(id).get().getDevices().stream().sorted().collect(Collectors.toList()));
@@ -89,6 +136,11 @@ public class UserPageController {
 		return "userDevices";
 	}
 	
+	/**
+	 * Validate.
+	 *
+	 * @param webDataBinder the web data binder
+	 */
 	@InitBinder
 	public void validate(WebDataBinder webDataBinder) {
 		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);

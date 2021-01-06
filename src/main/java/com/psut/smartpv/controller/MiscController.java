@@ -60,22 +60,27 @@ public class MiscController {
 			LOG.error("{} imei ={} ", SmartPvExceptionType.DEVICE_NOT_FOUND, imei);
 			return ResponseEntity.status(HttpStatus.OK).body(SmartPvExceptionType.DEVICE_NOT_FOUND.getMsg());
 		}
+
 		Optional<User> userByEmail = userService.getUserByEmail(email);
 		if (!userByEmail.isPresent()) {
 			LOG.error("{} email ={} ", SmartPvExceptionType.USER_NOT_FOUND, email);
 			return ResponseEntity.status(HttpStatus.OK).body(SmartPvExceptionType.USER_NOT_FOUND.getMsg());
 		}
-
-		ResponseEntity<String> responseEntity = null;
 		User user = userByEmail.get();
 		Set<Device> devices = user.getDevices();
 		if (devices.contains(deviceByImei.get())) {
 			LOG.error("{} imei ={} ", SmartPvExceptionType.DEVICE_ALREADY_EXIST, imei);
 			return ResponseEntity.status(HttpStatus.OK).body(SmartPvExceptionType.DEVICE_ALREADY_EXIST.getMsg());
 		}
-		devices.add(deviceByImei.get());
+
+		if (deviceByImei.get().getUser() != null) {
+			LOG.error("{} email ={} ", SmartPvExceptionType.DEVICE_ALREADY_USED, email);
+			return ResponseEntity.status(HttpStatus.OK).body(SmartPvExceptionType.DEVICE_ALREADY_USED.getMsg());
+		}
+		ResponseEntity<String> responseEntity = null;
+
 		try {
-			userService.updateUser(user);
+			deviceService.addUser(deviceByImei.get().getId(), user);
 			responseEntity = ResponseEntity.ok("OK");
 		} catch (SmartPvException e) {
 			LOG.error(e.getMessage());
