@@ -211,18 +211,16 @@
 				<script src="assets/js/argon.js?v=1.2.0"></script>
 
 
-<script>
-$(window).click(function(e) {
-
-	   if($(".navbar-collapse").hasClass("show")){
-	      $('.navbar-collapse').removeClass("show"); 
-	      e.preventDefault();
-	      }
-	});
-	 $('.navbar-collapse').click(function(event){
-	     event.stopPropagation();
-	 });
-</script>
+				<script>
+					$(window).click(function(e) {
+	   					if($(".navbar-collapse").hasClass("show")){
+	     					 $('.navbar-collapse').removeClass("show"); 
+	     				}
+					});
+					$('.navbar-collapse').click(function(event){
+	   					  event.stopPropagation();
+					 });
+				</script>
 </body>
 
 </html>

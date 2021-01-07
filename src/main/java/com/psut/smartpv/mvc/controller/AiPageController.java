@@ -39,6 +39,7 @@ public class AiPageController {
 		
 		}catch(Exception ex) {
 			ex.printStackTrace();
+			model.addAttribute("info",new AiInfoData());
 		}
 		
 		
