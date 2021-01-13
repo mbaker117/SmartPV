@@ -79,7 +79,7 @@ public class MainJob {
 	/**
 	 * Reset working device.
 	 */
-	@Scheduled(cron = "0 0/30 * * * ?")
+	@Scheduled(cron = "0 0/10 * * * ?")
 	public void resetWorkingDevice() {
 		LOG.debug("start cron job resetWorkingDevice");
 		LOG.info("The time is now {}", dateFormat.format(new Date()));

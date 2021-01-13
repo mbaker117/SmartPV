@@ -72,7 +72,11 @@ public class ArduinoFacadeImpl implements ArduinoFacade {
 		deviceService.updateDevice(device.getId(), imei, data.getLon(), data.getLat(), device.getRatedOut(),
 				device.getRatedCapacity(), data.getAngleH(), data.getAngleH());
 		double time = timeConverter.convertDateToDouble(new Date());
-		aiService.sendReading(new AiRealTimeData(time, data.getHum(), data.getTemp(), data.getOutput()));
+		try {
+			aiService.sendReading(new AiRealTimeData(time, data.getHum(), data.getTemp(), data.getOutput()));
+		} catch (Exception ex) {
+			LOG.error("exception in sending data imei = {} and data = {}, Ex = {}", imei, data, ex);
+		}
 		LOG.info("finished ArduinoFacadeImpl addData with latency = {}", (System.nanoTime() - nanoTime));
 
 	}

@@ -63,7 +63,7 @@ public class ExpectedReadingFacadeImpl implements ExpectedReadingFacade {
 		LOG.debug("start ExpectedReadingFacadeImpl addExpectedReadingToAllDevices");
 		long nanoTime = System.nanoTime();
 
-		List<Device> allDevices = deviceService.getAllActivatedDevices();
+		List<Device> allDevices = deviceService.getAllDevices();
 		if (allDevices == null) {
 			LOG.info("no devices");
 			return;
