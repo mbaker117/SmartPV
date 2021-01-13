@@ -55,6 +55,7 @@ public class MainJob {
 			LOG.error(e.getMessage());
 			e.printStackTrace();
 		}
+		updateAcctualEnergy();
 		LOG.debug("end cron job addExpectedPower");
 		LOG.info("The time is now {}", dateFormat.format(new Date()));
 	}
@@ -62,7 +63,6 @@ public class MainJob {
 	/**
 	 * Update acctual energy.
 	 */
-	@Scheduled(cron = "0 0 0 * * ?")
 	public void updateAcctualEnergy() {
 		LOG.debug("start cron job updateAcctualEnergy");
 		LOG.info("The time is now {}", dateFormat.format(new Date()));
