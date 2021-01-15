@@ -125,7 +125,7 @@
 							<table class="table align-items-center table-flush ">
 								<thead class="thead-light">
 									<tr>
-										<th scope="col" class="word-wrap" data-sort="name">Efficiency</th>
+										<th scope="col" class="word-wrap" data-sort="name">Mean Squared Error</th>
 										<th scope="col" class="word-wrap" data-sort="budget">Count</th>
 								
 
@@ -137,7 +137,7 @@
 								
 									<tbody class="list">
 										<tr>
-											<td class="budget">${info.efficiency} %</td>
+											<td class="budget">${info.error} %</td>
 
 											<td class="budget">${info.count}</td>
 

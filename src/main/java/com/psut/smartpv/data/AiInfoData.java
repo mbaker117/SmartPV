@@ -12,31 +12,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AiInfoData {
 	
-	/** The efficiency. */
+	/** The error. */
 	@JsonAlias("MSE")
-	private double efficiency;
+	private double error;
 	
 	/** The count. */
 	@JsonAlias("count")
 	private int count;
 
-	/**
-	 * Gets the efficiency.
-	 *
-	 * @return the efficiency
-	 */
-	public double getEfficiency() {
-		return efficiency;
-	}
+	
 
-	/**
-	 * Sets the efficiency.
-	 *
-	 * @param efficiency the new efficiency
-	 */
-	public void setEfficiency(double efficiency) {
-		this.efficiency = efficiency;
-	}
 
 	/**
 	 * Gets the count.
@@ -45,6 +30,24 @@ public class AiInfoData {
 	 */
 	public int getCount() {
 		return count;
+	}
+
+	/**
+	 * Gets the error.
+	 *
+	 * @return the error
+	 */
+	public double getError() {
+		return error;
+	}
+
+	/**
+	 * Sets the error.
+	 *
+	 * @param error the new error
+	 */
+	public void setError(double error) {
+		this.error = error;
 	}
 
 	/**

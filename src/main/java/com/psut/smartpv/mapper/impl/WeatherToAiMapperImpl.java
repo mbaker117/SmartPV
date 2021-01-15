@@ -96,7 +96,7 @@ public class WeatherToAiMapperImpl implements WeatherToAiMapper {
 		List<AiRequestData> list = new ArrayList<AiRequestData>();
 		for (TimeStampWeatherData d : data.subList(2, 7)) {
 			list.add(new AiRequestData(weatherConverter.longDateToHour(d.getDt()), d.getMain().getHumidity(),
-					d.getMain().getHumidity()));
+					d.getMain().getTemp()));
 		}
 		LOG.info("finished getOneDayData with latency = {}", (System.nanoTime() - nanoTime));
 		return new AiDayRequestData(date, list);

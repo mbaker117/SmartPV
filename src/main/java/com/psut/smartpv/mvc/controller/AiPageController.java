@@ -34,7 +34,7 @@ public class AiPageController {
 		try {
 			AiInfoData aiInfoData = aiService.getAiInfoData();
 			DecimalFormat formater = new DecimalFormat("##.##");
-			aiInfoData.setEfficiency(Double.valueOf(formater.format(aiInfoData.getEfficiency()*100)));
+			aiInfoData.setError(Double.valueOf(formater.format(aiInfoData.getError()*100)));
 			model.addAttribute("info",aiInfoData);
 		
 		}catch(Exception ex) {

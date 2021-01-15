@@ -75,7 +75,8 @@ public class ArduinoFacadeImpl implements ArduinoFacade {
 		try {
 			aiService.sendReading(new AiRealTimeData(time, data.getHum(), data.getTemp(), data.getOutput()));
 		} catch (Exception ex) {
-			LOG.error("exception in sending data imei = {} and data = {}, Ex = {}", imei, data, ex);
+			LOG.error("exception in sending data imei = {} and data = {}, Ex = {}", imei, data.toString(),
+					ex.getMessage());
 		}
 		LOG.info("finished ArduinoFacadeImpl addData with latency = {}", (System.nanoTime() - nanoTime));
 

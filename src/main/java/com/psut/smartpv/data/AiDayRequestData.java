@@ -69,4 +69,16 @@ public class AiDayRequestData {
 	}
 
 
+
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
+	@Override
+	public String toString() {
+		return "AiDayRequestData [date=" + date + ", data=" + data + "]";
+	}
+
+
 }

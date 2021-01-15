@@ -69,13 +69,7 @@ public class ExpectedReadingFacadeImpl implements ExpectedReadingFacade {
 			return;
 		}
 		for (Device device : allDevices) {
-			// if
-			// (!expectedReadingService.getExpectedReadingByDeviceAndDate(device.getId(),new
-			// Date()).isPresent()) {
 			addFiveDays(device);
-			// continue;
-			// }
-			// addDayFour(device);
 		}
 		LOG.info("finished ExpectedReadingFacadeImpl addExpectedReadingToAllDevices with latency = {}",
 				(System.nanoTime() - nanoTime));
@@ -94,6 +88,7 @@ public class ExpectedReadingFacadeImpl implements ExpectedReadingFacade {
 
 		List<AiDayRequestData> weatherToAiDataNextFourDays = weatherToAiMapper.getWeatherToAiDataNextFourDays(
 				(weatherService.getWeather(device.getLongitude(), device.getLatitude(), 40).get()));
+
 		for (AiDayRequestData day : weatherToAiDataNextFourDays) {
 			Optional<ExpectedReading> expectedReading = expectedReadingService
 					.getExpectedReadingByDeviceAndDate(device.getId(), day.getDate());
@@ -117,28 +112,4 @@ public class ExpectedReadingFacadeImpl implements ExpectedReadingFacade {
 		LOG.info("finished ExpectedReadingFacadeImpl addFourDays with latency = {}", (System.nanoTime() - nanoTime));
 
 	}
-
-	/**
-	 * Adds the day four.
-	 *
-	 * @param device the device
-	 * @throws SmartPvException the smart pv exception
-	 */
-	private void addDayFour(Device device) throws SmartPvException {
-		LOG.debug("start ExpectedReadingFacadeImpl addDayFour");
-		long nanoTime = System.nanoTime();
-
-		AiDayRequestData day = weatherToAiMapper.getWeatherToAiDataDayFour(
-				(weatherService.getWeather(device.getLongitude(), device.getLatitude(), 40).get()));
-		AiData power = aiService.getPower(day.getData()).get();
-		try {
-			expectedReadingService.addExpectedReadingByDeviceId(device.getId(), power.getEnergy(), day.getDate());
-		} catch (SmartPvException e) {
-			LOG.error(e.getMessage());
-			if (e.getType() != SmartPvExceptionType.EXPECTED_READING_ALREADY_EXIST)
-				throw e;
-		}
-		LOG.info("finished ExpectedReadingFacadeImpl addDayFour with latency = {}", (System.nanoTime() - nanoTime));
-	}
-
 }

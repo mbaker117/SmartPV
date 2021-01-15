@@ -85,4 +85,16 @@ public class AiRequestData {
 		this.temp = temp;
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
+	@Override
+	public String toString() {
+		return "AiRequestData [time=" + time + ", hum=" + hum + ", temp=" + temp + "]";
+	}
+	
+	
+
 }

@@ -156,6 +156,18 @@ public class ArduinoDataRequest {
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
+
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
+	@Override
+	public String toString() {
+		return "ArduinoDataRequest [output=" + output + ", temp=" + temp + ", hum=" + hum + ", angleV=" + angleV
+				+ ", angleH=" + angleH + ", lon=" + lon + ", lat=" + lat + "]";
+	}
+	
 	
 	
 
