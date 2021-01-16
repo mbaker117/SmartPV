@@ -3,6 +3,8 @@
  */
 package com.psut.smartpv.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +26,9 @@ public class ArduinoController {
 	/** The arduino facade. */
 	@Autowired
 	private ArduinoFacade arduinoFacade;
+	
+	/** The Constant LOG. */
+	private final static Logger LOG = LoggerFactory.getLogger(ArduinoController.class);
 
 	/**
 	 * Adds the readings.
@@ -35,7 +40,9 @@ public class ArduinoController {
 	@PostMapping("/{imei}")
 	public void addReadings(@RequestBody ArduinoDataRequest data, @PathVariable(name = "imei") String imei)
 			throws SmartPvException {
+		LOG.info("start addReadings imei = {}",imei);
 		arduinoFacade.addData(imei, data);
+		LOG.info("finished addReadings ");
 	}
 
 }

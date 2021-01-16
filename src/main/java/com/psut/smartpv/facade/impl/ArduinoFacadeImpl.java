@@ -64,6 +64,7 @@ public class ArduinoFacadeImpl implements ArduinoFacade {
 			throw new SmartPvException(SmartPvExceptionType.DEVICE_NOT_FOUND,
 					SmartPvExceptionType.DEVICE_NOT_FOUND.getMsg());
 		}
+		LOG.info("data = {}",data.toString());
 		Device device = deviceByImei.get();
 		realTimeReadingService.addRealTimeReadingByDeviceId(data.getOutput(), data.getTemp(), data.getHum(),
 				device.getId());
