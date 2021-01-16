@@ -45,7 +45,7 @@ public class MainJob {
 	 * Adds the expected power.
 	 */
 
-	@Scheduled(cron = "0 0 0 * * ?")
+	@Scheduled(cron = "0 5 0 * * ?")
 	public void addExpectedPower() {
 		LOG.debug("start cron job addExpectedPower");
 		LOG.info("The time is now {}", dateFormat.format(new Date()));
